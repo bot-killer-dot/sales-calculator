@@ -8,7 +8,6 @@ const commissionCalculator = require("./routes/commissionCalculator");
 
 const PORT = process.env.PORT || 3000;
 
-// Serve static files from the 'public' directory
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
