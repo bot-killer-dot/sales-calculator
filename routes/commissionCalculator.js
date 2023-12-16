@@ -4,6 +4,8 @@ function calculateCommission(saleValues) {
   let isFirstEntry = true;
 
   const totalCommission = saleValues.reduce((total, sale) => {
+    if (sale < 0) return total;
+
     if (isFirstEntry) {
       y = sale;
       isFirstEntry = false;
@@ -60,7 +62,7 @@ function calculateCommission(saleValues) {
 function calculateSalary(req, res) {
   const salesInput = req.body.salesInput;
   const saleValues = salesInput
-    .replace(/[^0-9\s]/g, "")
+    .replace(/[^-0-9\s]/g, "")
     .split(" ")
     .map(Number);
 
