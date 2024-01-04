@@ -51,7 +51,7 @@ function calculateCommission(saleValues) {
     }
   }, 0);
 
-  if (y > 3000) x = 30000;
+  if (y > 3000) x = 0;
 
   return {
     y,
