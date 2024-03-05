@@ -68,7 +68,6 @@ function calculateSalary(req, res) {
 
   const result = calculateCommission(saleValues);
 
-  // Sending JSON response
   res.json(result);
 }
 
