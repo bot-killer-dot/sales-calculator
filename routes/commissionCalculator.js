@@ -3,11 +3,28 @@ function calculateCommission(saleValues) {
   let y = 0;
   let isFirstEntry = true;
 
+  let array = [];
+  let negativeTotal = 0;
+
+  for (let i = 0; i < saleValues.length; i++) {
+    if (saleValues[i] < 0) {
+      array.push(saleValues[i]);
+      console.log(array[array.length - 1]);
+      y = y + array[array.length - 1];
+      if (array[array.length - 1] > -150) {
+        negativeTotal = negativeTotal + array[array.length - 1] * 10;
+      } else {
+        negativeTotal = negativeTotal + (10 * array[array.length - 1] - 500);
+      }
+    }
+  }
+
+  console.log(y, negativeTotal);
   const totalCommission = saleValues.reduce((total, sale) => {
     if (sale < 0) return total;
 
     if (isFirstEntry) {
-      y = sale;
+      y = y + sale;
       isFirstEntry = false;
       if (sale < 150) {
         return total + sale * 10;
@@ -51,11 +68,9 @@ function calculateCommission(saleValues) {
     }
   }, 0);
 
-  if (y > 3000) x = 0;
-
   return {
     y,
-    totalCommission: totalCommission + x,
+    totalCommission: totalCommission + negativeTotal,
   };
 }
 
@@ -68,6 +83,7 @@ function calculateSalary(req, res) {
 
   const result = calculateCommission(saleValues);
 
+  // Sending JSON response
   res.json(result);
 }
 
