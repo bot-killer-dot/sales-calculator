@@ -1,4 +1,5 @@
 const processArray = require("./processArray");
+//const negative = require('./negative');
 let sam = 0;
 function calculateCommission(saleValues) {
   let x = 0;
@@ -8,7 +9,7 @@ function calculateCommission(saleValues) {
   let array = [];
   let negativeTotal = 0;
   var v = 0;
-
+  let sam = saleValues[0]
   for (let i = 0; i < saleValues.length; i++) {
     sam = sam + saleValues[i];
     if (saleValues[i] < 0) {
@@ -22,16 +23,24 @@ function calculateCommission(saleValues) {
       }
     }
   }
-  console.log('before')
-  console.log(saleValues)
+  console.log('before negative', saleValues)
+  saleValues = negative(saleValues);
+ // saleValues = negative(saleValues);
+  function negative(array) {
+    const negatives = array.filter(value => value < 0);
+    const nonNegatives = array.filter(value => value >= 0);
+    return [...negatives, ...nonNegatives];
+  }
+  console.log('after negative', saleValues)
+  
   //putting Here  to pass the saleValues
   if (sam > 3000) {
+    console.log("inside sam")
     saleValues.push(-1);
     saleValues = processArray(saleValues);
   }
-  console.log('after')
-
-  console.log(saleValues)
+  
+  //console.log(saleValues)
   // console.log(y, negativeTotal);
   const totalCommission = saleValues.reduce((total, sale) => {
     if (sale < 0) return total;
@@ -105,7 +114,7 @@ function calculateSalary(req, res) {
 
   const result = calculateCommission(saleValues);
 
-  console.log(saleValues)
+ // console.log(saleValues)
   // Sending JSON response
   res.json(result);
 }
