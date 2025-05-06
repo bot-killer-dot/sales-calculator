@@ -3,7 +3,8 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const app = express();
 
-app.use(express.static("public"));
+// Use path.join for robust static file serving
+app.use(express.static(path.join(__dirname, "public")));
 
 const commissionCalculator = require("./routes/commissionCalculator");
 
